@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polling Hari Guru</title>
+<style>
+body { font-family: Arial, sans-serif; padding:20px; }
+.container { max-width:600px; margin:auto; }
+button { padding:10px 15px; margin:5px 0; width:100%; font-size:16px; }
+#result { margin-top:20px; font-size:18px; font-weight:bold; }
+.timer { font-size:20px; color:red; margin-bottom:15px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Polling Hari Guru</h2>
+<p>Pilih guru favorit Anda:</p>
+
+<div class="timer">Waktu tersisa: <span id="time">180</span> detik</div>
+
+<div id="options"></div>
+
+<div id="result"></div>
+</div>
+
+<script>
+var teachers = [
+"KAMARUDDIN L, S.St., Pi","HERLINA YUMITRA, S. Pi","JEFRI TAMPUBOLON, S.Pd",
+"DESWYTHA JUNI ARTHA, S. Pi","KHOLIS ROSANTI, S.Pd","SRI YURMIYANTY, S. Pd",
+"YUSSY KARISMA INSANI, S. Pd","DAVID SIGALINGGING, S. Pd","Drs. HARSONO",
+"AGUS GUSNUL YAQIN, S.St., Pi","SUSILO WARDANI, S.Pd","DONI SISWANTO, S.Pd",
+"KURNIAWATI NINGSIH, S.Pd","HERIYANTO, S.Pd","ZULHADI, S.S","MULYENI, S. Pi",
+"AGUM MARIO PUTRA, S. Pd","SHABIRIN, S.Pi","RICO RENALDO, S.Pd","JUNIATIN, S.Pd.I",
+"MASLANHARDIYANSAH, S.Tr.Pi","YUSRIANTO, S.Tr. Pi","ICHSAN RAMADHAN KUSUMA, S.Tr.Pi",
+"PRIYANTI JUNIA PRATIWI, S.Pi","M. IKHSAN, S.Pd","DIAS PERMATA, S.Pd",
+"WALIDA MEGA PUTRI, S.Pd","DENOPA TIODORA NAHAMPUN, SE","HAZAMAH, S.Ag",
+"TIURMA LASMAIDA HASUGIAN, S.Pd","RETNO DARA SUSFITA, S.Pd","ARFIRANTI, S.Pd",
+"RISKA ANDAYANI, S.Kom","SRI ASTUTI, S. Pd","MUHAMMAD RIKI, S.Tr.Pi","QODRI ARDIVANI, S.T",
+"SURONO","VENNA","DINA","ARI","FIRMAN","ROMDONI"
+];
+
+var voted = false;
+var optionsDiv = document.getElementById('options');
+
+teachers.forEach(function(name, index){
+    var btn = document.createElement("button");
+    btn.textContent = name;
+    btn.onclick = function(){
+        if(voted) return alert("Anda sudah memilih.");
+        voted = true;
+        document.getElementById("result").textContent = "Terima kasih! Anda memilih: " + name;
+        localStorage.setItem("vote_teacher", name);
+    };
+    optionsDiv.appendChild(btn);
+});
+
+// Timer 180 detik
+var time = 180;
+var timer = setInterval(function(){
+    time--;
+    document.getElementById("time").textContent = time;
+    if(time <= 0){
+        clearInterval(timer);
+        document.getElementById("options").innerHTML = "<p>Waktu habis!</p>";
+    }
+}, 1000);
+</script>
+</body>
+</html>
